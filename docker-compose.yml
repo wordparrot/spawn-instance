@@ -1,0 +1,106 @@
+# docker-compose.yml
+version: "3.8"
+
+networks: 
+    internal-network:
+        driver: bridge
+        name: wprt_public
+
+services:
+    nginx:
+        image: alecejones/wordparrot-nginx
+        env_file: 
+            - .env
+        volumes:
+            - resty_conf:/etc/nginx/nginx.conf
+            - resty_certificates:/etc/resty-auto-ssl:rw
+            - app_static:/var/www/wordparrot/sites/build:ro
+        ports:
+            - 80:80
+            - 443:443
+        networks: 
+            - internal-network
+
+    db_server:
+        image: mysql
+        restart: always
+        volumes:
+            - db_data:/var/lib/mysql
+        environment:
+            MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+        env_file:
+            - .env
+        ports:
+            - 3306:3306
+        networks: 
+            - internal-network
+
+    adminer:
+        image: adminer
+        restart: always
+        ports:
+            - 8080:8080
+        networks: 
+            - internal-network
+  
+    redis_server:
+        image: redis:alpine
+        env_file: 
+            - .env
+        command: redis-server --requirepass ${REDIS_PASSWORD}
+        volumes:
+            - redis_data:/data
+        ports:
+            - 6379:6379
+        networks: 
+            - internal-network
+    
+    sandbox_server:
+        image: alecejones/wordparrot-sandbox
+        env_file: 
+            - .env
+        volumes:
+            - redis_data:/data
+        ports:
+            - 6060:6060
+        networks: 
+            - internal-network
+
+    sites_server:
+        image: alecejones/wordparrot
+        env_file: 
+            - .env
+        ports:
+            - 5000:5000
+        depends_on:
+            - redis_server
+        volumes:
+            - app_static:/var/www/wordparrot/sites/build:rw
+            - server_content:/var/www/wordparrot/server/content:rw
+            - authorized_domains:/var/www/wordparrot/server/authorized_domains:rw
+        networks: 
+            - internal-network
+
+volumes:
+    resty_conf:
+        driver: local
+        name: resty_conf
+    resty_certificates:
+        driver: local
+        name: resty_certificates
+    authorized_domains:
+        driver: local
+        name: authorized_domains
+    db_data:
+        driver: local
+        name: db_data
+    redis_data:
+        driver: local
+        name: redis_data
+    app_static:
+        driver: local
+        name: app_static
+    server_content:
+        driver: local
+        name: server_content
+  
