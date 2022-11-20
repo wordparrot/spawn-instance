@@ -6,7 +6,7 @@
 # By: Alec Jones
 
 DOMAIN_NAME=$1
-SPAWN_INSTANCE_REPO="git@bitbucket.org:DowJones753/wordparrot-spawn-instance.git"
+SPAWN_INSTANCE_REPO="https://DowJones753@bitbucket.org/DowJones753/wordparrot-spawn-instance.git"
 WORDPARROT_ROOT = "/opt/wordparrot"
 SPAWN_INSTANCE_FOLDER="spawn-instance"
 SETUP_SCRIPT="setup.sh"
