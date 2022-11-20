@@ -27,11 +27,12 @@ if [ -z "$DOMAIN_NAME" ]; then
     exit 1
 fi
 
-if [[ $URL =~ ^([a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,}$ ]]; then
+if [[ "$DOMAIN_NAME" =~ ^([a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,}$ ]]; then
     # nothing, domain name matches regex
+    echo 'Entered domain name valid.'
 else
     echo 'Domain name is not valid format. Please enter valid domain name.'
-    exit 1sudp a
+    exit 1
 fi
 
 if [ -x "$(command -v apk)" ]; then # Alpine Linux
