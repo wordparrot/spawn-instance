@@ -39,8 +39,6 @@ services:
             - server_content:/var/www/wordparrot/server/content:ro
             - server_plugins:/var/www/wordparrot/server/plugins:ro
             - authorized_domains:/var/www/wordparrot/authorized_domains:ro
-            - resty_certificates:/etc/resty-auto-ssl:rw
-            - resty_conf:/etc/nginx/nginx.conf
         networks: 
             - internal-network
         env_file:
