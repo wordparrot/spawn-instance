@@ -61,8 +61,11 @@ echo 'Node 18 installation complete.'
 
 echo 'Generating env files...'
 
-cd ./$SPAWN_INSTANCE_FOLDER && npm run generate-env
-cd .. && mv ./$SPAWN_INSTANCE_FOLDER/scripts/* ./ && mv ./$SPAWN_INSTANCE_FOLDER/scripts/.* && mv ./$SPAWN_INSTANCE_FOLDER/package.json ./
+cd ./$SPAWN_INSTANCE_FOLDER && npm run generate-env && cd ..
+mv ./$SPAWN_INSTANCE_FOLDER/scripts/.env ./
+mv ./$SPAWN_INSTANCE_FOLDER/scripts/.env.sandbox ./
+mv ./$SPAWN_INSTANCE_FOLDER/scripts/docker-compose.yml ./
+mv ./$SPAWN_INSTANCE_FOLDER/package.json ./
 
 echo 'Env files generated. Deleting spawn instance repo.'
 
