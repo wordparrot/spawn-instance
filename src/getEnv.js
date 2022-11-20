@@ -36,6 +36,8 @@ SANDBOX_PORT=${config.sandboxPort}
 
 # Server main port
 SERVER_PORT=${config.serverPort}
+
+# Add custom entries below
 `
 
     return env
