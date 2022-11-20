@@ -1,0 +1,14 @@
+{
+    "name": "wordparrot-spawn-instance",
+    "version": "0.0.1",
+    "private": true,
+    "scripts": {
+        "start": "docker-compose down && npm run prune-static-volume && docker-compose up -d",
+        "update": "npm run build && docker-compose push",
+        "build": "docker-compose down && docker-compose build",
+        "prune-static-volume": "docker volume rm wordparrot_demo_server_bull && docker volume rm wordparrot_demo_static",
+        "generate-env": "node ./generateEnv.js",
+        "bss": "docker-compose build --no-cache sites_server",
+        "bn": "docker-compose build --no-cache nginx"
+    }
+}

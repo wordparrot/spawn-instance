@@ -1,4 +1,25 @@
-# docker-compose.yml
+/*
+{
+    cookieSecret: string
+    jwtSecret: string
+    adminJwtSecret: string
+    storageEncryptionKey: string
+    dbName: string
+    dbPassword: string
+    mysqlRootPassword: string
+    databaseUser: string
+    redisPassword: string
+    sandboxPort: number
+    serverPort: number
+    redisPort: number
+    redisServerName: string
+    dbPort: number
+}
+*/
+module.exports = (config) => {
+    const dockerCompose = 
+
+`# docker-compose.yml
 version: "3.8"
 
 networks: 
@@ -9,25 +30,35 @@ networks:
 services:
     nginx:
         image: alecejones/wordparrot-nginx
-        env_file: 
-            - .env
         volumes:
             - resty_conf:/etc/nginx/nginx.conf
             - resty_certificates:/etc/resty-auto-ssl:rw
-            - app_static:/var/www/wordparrot/sites/build:ro
+            - sites_static:/var/www/wordparrot/sites/out:ro
+            - setup_static:/var/www/wordparrot/sites/setup:ro
+            - server_bull:/var/www/wordparrot/server/bull:ro
+            - server_content:/var/www/wordparrot/server/content:ro
+            - server_plugins:/var/www/wordparrot/server/plugins:ro
+            - authorized_domains:/var/www/wordparrot/authorized_domains:ro
+            - resty_certificates:/etc/resty-auto-ssl:rw
+            - resty_conf:/etc/nginx/nginx.conf
+        networks: 
+            - internal-network
+        env_file:
+            - .env
         ports:
             - 80:80
             - 443:443
-        networks: 
-            - internal-network
+        depends_on:
+            - redis_server
+            - sites_server
 
-    db_server:
+    ${config.dbHost}:
         image: mysql
         restart: always
         volumes:
             - db_data:/var/lib/mysql
         environment:
-            MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+            MYSQL_ROOT_PASSWORD: \${MYSQL_ROOT_PASSWORD\}
         env_file:
             - .env
         ports:
@@ -35,19 +66,19 @@ services:
         networks: 
             - internal-network
 
-    adminer:
-        image: adminer
+    phpmyadmin:
+        image: phpmyadmin
         restart: always
         ports:
             - 8080:8080
         networks: 
             - internal-network
-  
-    redis_server:
+    
+    ${config.redisServerName}:
         image: redis:alpine
         env_file: 
             - .env
-        command: redis-server --requirepass ${REDIS_PASSWORD}
+        command: redis-server --requirepass \${REDIS_PASSWORD\}
         volumes:
             - redis_data:/data
         ports:
@@ -75,8 +106,11 @@ services:
         depends_on:
             - redis_server
         volumes:
-            - app_static:/var/www/wordparrot/sites/build:rw
+            - sites_static:/var/www/wordparrot/sites/out:rw
+            - setup_static:/var/www/wordparrot/setup/public:rw
             - server_content:/var/www/wordparrot/server/content:rw
+            - server_bull:/var/www/wordparrot/server/bull:rw
+            - server_plugins:/var/www/wordparrot/server/plugins:rw
             - authorized_domains:/var/www/wordparrot/server/authorized_domains:rw
         networks: 
             - internal-network
@@ -97,10 +131,22 @@ volumes:
     redis_data:
         driver: local
         name: redis_data
-    app_static:
+    sites_static:
         driver: local
-        name: app_static
+        name: sites_static
+    setup_static:
+        driver: local
+        name: setup_static
     server_content:
         driver: local
         name: server_content
-  
+    server_plugins:
+        driver: local
+        name: server_plugins
+    server_bull:
+        driver: local
+        name: server_bull
+`
+
+    return dockerCompose
+}
