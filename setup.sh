@@ -8,18 +8,18 @@
 DOMAIN_NAME=$1
 FORCE=$2
 COMPLETION_FILE="wparrot_completed.txt"
+COMPLETION_VAR="export WORDPARROT_COMPLETED_SETUP=true"
 SPAWN_INSTANCE_FOLDER="spawn-instance"
 ENV_FILE=".env"
 
-# if [ -z "$domain_name" ]; then
-#     if [[ "$PARAM" == "--force" ]]; then
-#         $FORCE='--force'
-#         PARAM=$1
-#         OPTION=$2
-#     else
-#         OPTION=$1
-#     fi
-# fi
+if [ -e "$COMPLETION_FILE" ]; then
+    if [[ "$FORCE" == "--force" ]]; then
+        echo 'You have selected to force installation.'
+    else
+        echo 'Completion file detected. You must add the --force parameter in order to proceed. Exiting.'
+        exit 1
+    fi
+fi
 
 if [ -z "$DOMAIN_NAME" ]; then
     echo 'Script requires domain name as first argument. Please enter default domain name.'
@@ -35,22 +35,11 @@ else
     exit 1
 fi
 
-if [ -x "$(command -v apk)" ]; then # Alpine Linux
-    echo 'Alpine Linux detected...'
-    apk add nodejs npm
-elif [ -x "$(command -v apt-get)" ]; then # Ubuntu/Debian
-    echo 'Ubuntu/Debian detected...'
+if [ -x "$(command -v apt-get)" ]; then # Ubuntu/Debian
+    echo 'Linux distro: Debian/Ubuntu detected.'
     curl -fsSL https://deb.nodesource.com/setup_lts.xnode | sudo -E bash - &&\
     sudo apt-get install -y nodejs
-elif [ -x "$(command -v dnf)" ]; then # CentOS/Redhat/Rocky
-    echo 'Redhat/CentOS detected...'
-    dnf module install nodejs:18
-elif [ -x "$(command -v zypper)" ]; then # openSUSE
-    echo 'openSUSE detected...'
-    zypper install nodejs14
-elif [ -x "$(command -v pkg_add)" ]; then # OpenBSD
-    echo 'OpenBSD detected...'
-    pkg_add node
+    sudo apt install -y docker.io docker-compose
 else 
     echo "Failed to install node.js: Supported Linux package manager not found"
     echo "Exiting."
@@ -67,6 +56,9 @@ mv ./$SPAWN_INSTANCE_FOLDER/scripts/.env.sandbox ./
 mv ./$SPAWN_INSTANCE_FOLDER/scripts/docker-compose.yml ./
 mv ./$SPAWN_INSTANCE_FOLDER/package.json ./
 
+# Set start script permissions
+chmod +x ./start.sh
+
 echo 'Env files generated. Deleting spawn instance repo.'
 
 rm -rf ./$SPAWN_INSTANCE_FOLDER
@@ -78,9 +70,22 @@ echo "AUTHORIZED_DOMAIN=$DOMAIN_NAME" >> $ENV_FILE
 # Download required containers as specified on docker-compose.yml
 docker-compose pull
 
+# Docker images pulled from Docker Hub.
+echo "Images obtained from Docker Hub."
+
 # Write completion file. Must run script with --force flag if this file is detected later, otherwise script will end prematurely.
-touch $COMPLETION_FILE
+touch ./$COMPLETION_FILE
+echo "# This file is created once wordparrot installation successfully completes." >> ./$COMPLETION_FILE
+echo "# You don't need to put anything here." >> ./$COMPLETION_FILE
+
+# Also set WORDPARROT_SETUP_COMPLETE=true to the $PATH
+echo " " >> ~/.profile
+echo "# Mark Wordparrot installation complete here" >> ~/.profile
+echo "$COMPLETION_VAR" >> ~/.profile
+source ~/.profile
+
+# Docker images pulled from Docker Hub.
+echo "Now booting up application. Please wait a few minutes for dependencies to install."
 
 # Run start script from package.json
-chmod +x ./start.sh
 ./start.sh
