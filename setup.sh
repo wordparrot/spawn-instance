@@ -67,8 +67,14 @@ echo 'Env files generated. Deleting spawn instance repo.'
 # The server will add these domains to redis at bootup.
 # When added to redis, nginx can recognize the domain name as a permitted URL and generates an SSL cert if one is not found.
 # The specific domain will be injected at runtime because each domain is user-specific.
-
+echo "# Authorized Domain" >> ./.env
 ###INJECT_AUTHORIZED_DOMAIN###
+
+# Inject credentials for database
+echo "# Database Credentials" >> ./.env
+###INJECT_MYSQL_ROOT_PASSWORD###
+###INJECT_DATABASE_USER###
+###INJECT_DATABASE_PASSWORD###
 
 rm -rf ./$SPAWN_INSTANCE_FOLDER
 

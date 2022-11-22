@@ -67,6 +67,12 @@ services:
     phpmyadmin:
         image: phpmyadmin
         restart: always
+        env_file: 
+            - .env
+        environment:
+            MYSQL_ROOT_PASSWORD: \${MYSQL_ROOT_PASSWORD\}
+            MYSQL_USER: \${DATABASE_USER\}
+            MYSQL_PASSWORD: \${DATABASE_PASSWORD\}
         ports:
             - 8080:8080
         networks: 

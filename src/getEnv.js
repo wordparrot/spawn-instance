@@ -14,9 +14,6 @@ STORAGE_ENCRYPTION_KEY=${config.storageEncryptionKey}
 
 # Database
 DATABASE_NAME=${config.dbName}
-MYSQL_ROOT_PASSWORD=${config.mysqlRootPassword}
-DATABASE_PASSWORD=${config.dbUserPassword}
-DATABASE_USER=${config.dbUser}
 DATABASE_HOST=${config.dbHost}
 # Uncomment and fill in to override with external MySQL database
 # DATABASE_FULL_STRING=mysql://user:password@localhost/wordparrot_db
@@ -37,7 +34,8 @@ SANDBOX_PORT=${config.sandboxPort}
 # Server main port
 SERVER_PORT=${config.serverPort}
 
-# Add custom entries below
+# Add injected entries below
+
 `
 
     return env
