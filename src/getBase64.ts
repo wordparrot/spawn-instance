@@ -1,4 +1,5 @@
 import { promises } from 'fs'
+import { resolve } from 'path'
 
 const setupScriptInBase64 = async (config) => {
     const {
@@ -24,7 +25,7 @@ const setupScriptInBase64 = async (config) => {
         throw new Error('Error: must supply databasePassword to setup script')
     }
 
-    return promises.readFile('./setup.sh', { encoding: 'utf-8' })
+    return promises.readFile(resolve(__dirname, '..', 'setup.sh'), { encoding: 'utf-8' })
     .then((setupSh) => {
         let modifiedSetupScript = setupSh.replace(
             '###INJECT_AUTHORIZED_DOMAIN###', 

@@ -1,4 +1,4 @@
-#!/bin/bash
+const setup = `#!/bin/bash
 
 # Node.js Version: 18.x
 # Script version: 0.0.1
@@ -100,3 +100,6 @@ echo "Now booting up application. Please wait a few minutes for dependencies to 
 
 # Run start script from package.json
 ./start.sh
+`
+
+export default setup
