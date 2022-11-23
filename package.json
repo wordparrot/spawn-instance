@@ -6,10 +6,8 @@
         "start": "",
         "update": "",
         "build": "tsc --outDir dist/ src/*",
-        "prune-static-volume": "",
         "generate-env": "node ./dist/generateEnv.js",
-        "bss": "docker-compose build --no-cache sites_server",
-        "bn": "docker-compose build --no-cache nginx"
+        "generate-setup": "node ./dist/generateSetupSh.js"
     },
     "devDependencies": {
         "@types/node": "^18.11.9",

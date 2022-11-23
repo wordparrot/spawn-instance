@@ -36,33 +36,40 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-var fs_1 = require("fs");
+exports.setupScriptInUtf8 = void 0;
+var setup_1 = require("./setup");
+var setupScriptInUtf8 = function (config) {
+    var domainName = config.domainName, mysqlRootPassword = config.mysqlRootPassword, databaseUser = config.databaseUser, databasePassword = config.databasePassword;
+    if (!domainName) {
+        throw new Error('Error: must supply domain name to setup script');
+    }
+    if (!mysqlRootPassword) {
+        throw new Error('Error: must supply mysqlRootPassword to setup script');
+    }
+    if (!databaseUser) {
+        throw new Error('Error: must supply databaseUser to setup script');
+    }
+    if (!databasePassword) {
+        throw new Error('Error: must supply databasePassword to setup script');
+    }
+    var modifiedSetupScript = setup_1["default"].replace('###INJECT_AUTHORIZED_DOMAIN###', "echo \"AUTHORIZED_DOMAIN=".concat(domainName, "\" >> .env"));
+    // Inject values for database and phpMyAdmin access
+    modifiedSetupScript = setup_1["default"].replace('###INJECT_MYSQL_ROOT_PASSWORD###', "echo \"MYSQL_ROOT_PASSWORD=".concat(mysqlRootPassword, "\" >> .env"));
+    modifiedSetupScript = setup_1["default"].replace('###INJECT_DATABASE_USER###', "echo \"DATABASE_USER=".concat(databaseUser, "\" >> .env"));
+    modifiedSetupScript = setup_1["default"].replace('###INJECT_DATABASE_PASSWORD###', "echo \"DATABASE_PASSWORD=".concat(databasePassword, "\" >> .env"));
+    return modifiedSetupScript;
+};
+exports.setupScriptInUtf8 = setupScriptInUtf8;
 var setupScriptInBase64 = function (config) { return __awaiter(void 0, void 0, void 0, function () {
-    var domainName, mysqlRootPassword, databaseUser, databasePassword;
+    var setupScript, buf;
     return __generator(this, function (_a) {
-        domainName = config.domainName, mysqlRootPassword = config.mysqlRootPassword, databaseUser = config.databaseUser, databasePassword = config.databasePassword;
-        if (!domainName) {
-            throw new Error('Error: must supply domain name to setup script');
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, (0, exports.setupScriptInUtf8)(config)];
+            case 1:
+                setupScript = _a.sent();
+                buf = Buffer.from(setupScript, 'utf-8');
+                return [2 /*return*/, buf.toString('base64')];
         }
-        if (!mysqlRootPassword) {
-            throw new Error('Error: must supply mysqlRootPassword to setup script');
-        }
-        if (!databaseUser) {
-            throw new Error('Error: must supply databaseUser to setup script');
-        }
-        if (!databasePassword) {
-            throw new Error('Error: must supply databasePassword to setup script');
-        }
-        return [2 /*return*/, fs_1.promises.readFile('./setup.sh', { encoding: 'utf-8' })
-                .then(function (setupSh) {
-                var modifiedSetupScript = setupSh.replace('###INJECT_AUTHORIZED_DOMAIN###', "echo \"AUTHORIZED_DOMAIN=".concat(domainName, "\" >> .env"));
-                // Inject values for database and phpMyAdmin access
-                modifiedSetupScript = setupSh.replace('###INJECT_MYSQL_ROOT_PASSWORD###', "echo \"MYSQL_ROOT_PASSWORD=".concat(mysqlRootPassword, "\" >> .env"));
-                modifiedSetupScript = setupSh.replace('###INJECT_DATABASE_USER###', "echo \"DATABASE_USER=".concat(databaseUser, "\" >> .env"));
-                modifiedSetupScript = setupSh.replace('###INJECT_DATABASE_PASSWORD###', "echo \"DATABASE_PASSWORD=".concat(databasePassword, "\" >> .env"));
-                var buf = Buffer.from(modifiedSetupScript, 'utf-8');
-                return buf.toString('base64');
-            })];
     });
 }); };
 exports["default"] = setupScriptInBase64;
