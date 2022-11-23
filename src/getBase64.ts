@@ -30,15 +30,15 @@ export const setupScriptInUtf8 = (config) => {
     )
 
     // Inject values for database and phpMyAdmin access
-    modifiedSetupScript = setupSh.replace(
+    modifiedSetupScript = modifiedSetupScript.replace(
         '###INJECT_MYSQL_ROOT_PASSWORD###', 
         `echo "MYSQL_ROOT_PASSWORD=${mysqlRootPassword}" >> .env`
     )
-    modifiedSetupScript = setupSh.replace(
+    modifiedSetupScript = modifiedSetupScript.replace(
         '###INJECT_DATABASE_USER###', 
         `echo "DATABASE_USER=${databaseUser}" >> .env`
     )
-    modifiedSetupScript = setupSh.replace(
+    modifiedSetupScript = modifiedSetupScript.replace(
         '###INJECT_DATABASE_PASSWORD###', 
         `echo "DATABASE_PASSWORD=${databasePassword}" >> .env`
     )
