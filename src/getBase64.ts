@@ -1,4 +1,4 @@
-const { readFile } = require('node:fs/promises')
+import { promises } from 'fs'
 
 const setupScriptInBase64 = async (config) => {
     const {
@@ -24,7 +24,7 @@ const setupScriptInBase64 = async (config) => {
         throw new Error('Error: must supply databasePassword to setup script')
     }
 
-    return readFile('./setup.sh', { encoding: 'utf-8' })
+    return promises.readFile('./setup.sh', { encoding: 'utf-8' })
     .then((setupSh) => {
         let modifiedSetupScript = setupSh.replace(
             '###INJECT_AUTHORIZED_DOMAIN###', 
@@ -50,4 +50,4 @@ const setupScriptInBase64 = async (config) => {
     })
 }
  
-module.exports = setupScriptInBase64
+export default setupScriptInBase64

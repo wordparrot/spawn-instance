@@ -1,4 +1,4 @@
-module.exports = (pLength) => {
+const generatePass = (pLength) => {
     let keyListAlpha="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ",
         keyListInt="1234567890",
         keyListSpec="_-",
@@ -19,3 +19,5 @@ module.exports = (pLength) => {
 
     return password;
 }
+
+export default generatePass

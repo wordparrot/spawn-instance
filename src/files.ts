@@ -1,12 +1,11 @@
-const getDockerCompose = require('./getDockerCompose')
-const getEnv = require('./getEnv')
-const getEnvSandbox = require('./getEnvSandbox')
-const getStart = require('./getStart')
-
-const defineEnvVariables = require('./defineEnvVariables')
+import getDockerCompose  from "./getDockerCompose"
+import getEnv from './getEnv'
+import getSandboxEnv from './getSandboxEnv'
+import getStart from './getStart'
+import defineEnvVariables from "./defineEnvVariables"
 const envVariables = defineEnvVariables()
 
-module.exports = [
+const files = [
     {
         name: 'docker-compose.yml',
         rawString: getDockerCompose(envVariables),
@@ -19,7 +18,7 @@ module.exports = [
     },
     {
         name: '.env.sandbox',
-        rawString: getEnvSandbox(envVariables),
+        rawString: getSandboxEnv(envVariables),
         index: 2,
     },
     {
@@ -28,3 +27,5 @@ module.exports = [
         index: 3,
     }
 ]
+
+export default files

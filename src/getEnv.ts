@@ -1,4 +1,4 @@
-module.exports = (config) => {
+const getEnv = (config) => {
     const env = 
 
 `# Sites server
@@ -40,3 +40,5 @@ SERVER_PORT=${config.serverPort}
 
     return env
 }
+
+export default getEnv

@@ -1,4 +1,4 @@
-module.exports = (base64Str) => {
+const cloudInit = (base64Str) => {
     const cloudInitStr = `
 #cloud-config
 
@@ -6,3 +6,5 @@ module.exports = (base64Str) => {
 
     return cloudInitStr
 }
+
+export default cloudInit

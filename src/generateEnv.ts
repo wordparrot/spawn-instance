@@ -1,5 +1,5 @@
-const { mkdirSync, writeFileSync, rmSync } = require('fs')
-const files = require('./src/files')
+import { mkdirSync, writeFileSync, rmSync } from 'fs'
+import files from './files'
 
 try {
     rmSync('./scripts', {recursive: true})

@@ -1,4 +1,4 @@
-module.exports = (config) => {
+const getSandboxEnv = (config) => {
     const envSandbox =
 
 `# Sandbox server
@@ -20,3 +20,5 @@ REDIS_CACHE_DB=${config.redisCacheDb}
 
     return envSandbox
 }
+
+export default getSandboxEnv

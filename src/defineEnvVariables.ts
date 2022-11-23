@@ -1,6 +1,6 @@
-const generatePass = require('./generatePass')
+import generatePass from "./generatePass"
 
-module.exports = () => {
+const defineEnvVariables = () => {
     return {
         nodeEnv: 'production',
 
@@ -30,3 +30,5 @@ module.exports = () => {
         serverPort: 5000,
     }
 }
+
+export default defineEnvVariables

@@ -16,7 +16,7 @@
     dbPort: number
 }
 */
-module.exports = (config) => {
+const getDockerCompose = (config) => {
     const dockerCompose = 
 
 `# docker-compose.yml
@@ -154,3 +154,5 @@ volumes:
 
     return dockerCompose
 }
+
+export default getDockerCompose
