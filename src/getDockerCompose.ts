@@ -30,6 +30,7 @@ networks:
 services:
     nginx:
         image: alecejones/wordparrot-nginx
+        restart: always
         volumes:
             - resty_conf:/etc/nginx/nginx.conf
             - resty_certificates:/etc/resty-auto-ssl:rw
@@ -85,6 +86,7 @@ services:
     
     ${config.redisServerName}:
         image: redis:alpine
+        restart: always
         env_file: 
             - .env
         command: redis-server --requirepass \${REDIS_PASSWORD\}
@@ -97,6 +99,7 @@ services:
     
     sandbox_server:
         image: alecejones/wordparrot-sandbox
+        restart: always
         env_file: 
             - .env
         volumes:
@@ -108,6 +111,7 @@ services:
 
     sites_server:
         image: alecejones/wordparrot
+        restart: always
         env_file: 
             - .env
         ports:
