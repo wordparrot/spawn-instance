@@ -52,11 +52,15 @@ services:
 
     ${config.dbHost}:
         image: mysql
+        container_name: ${config.dbHost}
         restart: always
         volumes:
             - db_data:/var/lib/mysql
         environment:
             MYSQL_ROOT_PASSWORD: \${MYSQL_ROOT_PASSWORD\}
+            MYSQL_DATABASE: \${DATABASE_NAME\}
+            MYSQL_USER: \${DATABASE_USER\}
+            MYSQL_PASSWORD: \${DATABASE_PASSWORD\}
         env_file:
             - .env
         ports:
@@ -70,11 +74,12 @@ services:
         env_file: 
             - .env
         environment:
+            PMA_HOST: ${config.dbHost}
             MYSQL_ROOT_PASSWORD: \${MYSQL_ROOT_PASSWORD\}
             MYSQL_USER: \${DATABASE_USER\}
             MYSQL_PASSWORD: \${DATABASE_PASSWORD\}
         ports:
-            - 8080:8080
+            - 8080:80
         networks: 
             - internal-network
     
