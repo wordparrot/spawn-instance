@@ -12,7 +12,6 @@ SPAWN_INSTANCE_FOLDER="spawn-instance"
 ENV_FILE=".env"
 SPAWN_INSTANCE_REPO="https://DowJones753@bitbucket.org/DowJones753/wordparrot-spawn-instance.git"
 WORDPARROT_ROOT = "/opt/wordparrot"
-SETUP_SCRIPT="setup.sh"
 
 echo 'Creating root wordparrot directory at /opt/wordparrot ...'
 
@@ -25,8 +24,6 @@ git clone $SPAWN_INSTANCE_REPO $SPAWN_INSTANCE_FOLDER
 echo 'Root directory created. Cloning build scripts...'
 
 git clone $SPAWN_INSTANCE_REPO $SPAWN_INSTANCE_FOLDER
-
-chmod +x ./$SPAWN_INSTANCE_FOLDER/$SETUP_SCRIPT && ./$SPAWN_INSTANCE_FOLDER/$SETUP_SCRIPT $FORCE
 
 if [ -e "$COMPLETION_FILE" ]; then
     if [[ "$FORCE" == "--force" ]]; then
@@ -50,12 +47,13 @@ fi
 
 echo 'Node 18 installation complete.'
 
-echo 'Generating env files...'
+echo 'Generating and moving env files...'
 
 cd ./$SPAWN_INSTANCE_FOLDER && npm run generate-env && cd ..
 mv ./$SPAWN_INSTANCE_FOLDER/scripts/.env ./
 mv ./$SPAWN_INSTANCE_FOLDER/scripts/.env.sandbox ./
 mv ./$SPAWN_INSTANCE_FOLDER/scripts/docker-compose.yml ./
+mv ./$SPAWN_INSTANCE_FOLDER/scripts/start.sh ./
 mv ./$SPAWN_INSTANCE_FOLDER/package.json ./
 
 # Set start script permissions
