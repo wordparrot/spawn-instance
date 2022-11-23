@@ -1,6 +1,3 @@
-import { promises } from 'fs'
-import { resolve } from 'path'
-
 import setupSh from './setup'
 
 export const setupScriptInUtf8 = (config) => {
