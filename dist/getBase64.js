@@ -54,9 +54,9 @@ var setupScriptInUtf8 = function (config) {
     }
     var modifiedSetupScript = setup_1["default"].replace('###INJECT_AUTHORIZED_DOMAIN###', "echo \"AUTHORIZED_DOMAIN=".concat(domainName, "\" >> .env"));
     // Inject values for database and phpMyAdmin access
-    modifiedSetupScript = setup_1["default"].replace('###INJECT_MYSQL_ROOT_PASSWORD###', "echo \"MYSQL_ROOT_PASSWORD=".concat(mysqlRootPassword, "\" >> .env"));
-    modifiedSetupScript = setup_1["default"].replace('###INJECT_DATABASE_USER###', "echo \"DATABASE_USER=".concat(databaseUser, "\" >> .env"));
-    modifiedSetupScript = setup_1["default"].replace('###INJECT_DATABASE_PASSWORD###', "echo \"DATABASE_PASSWORD=".concat(databasePassword, "\" >> .env"));
+    modifiedSetupScript = modifiedSetupScript.replace('###INJECT_MYSQL_ROOT_PASSWORD###', "echo \"MYSQL_ROOT_PASSWORD=".concat(mysqlRootPassword, "\" >> .env"));
+    modifiedSetupScript = modifiedSetupScript.replace('###INJECT_DATABASE_USER###', "echo \"DATABASE_USER=".concat(databaseUser, "\" >> .env"));
+    modifiedSetupScript = modifiedSetupScript.replace('###INJECT_DATABASE_PASSWORD###', "echo \"DATABASE_PASSWORD=".concat(databasePassword, "\" >> .env"));
     return modifiedSetupScript;
 };
 exports.setupScriptInUtf8 = setupScriptInUtf8;

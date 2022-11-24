@@ -2,7 +2,10 @@ import { mkdirSync, writeFileSync, rmSync } from 'fs'
 import files from './files'
 
 try {
-    rmSync('./scripts', {recursive: true})
+    rmSync('./scripts', {
+        force: true,
+        recursive: true
+    })
 } catch (e) {
     // will throw error if no folder exists, but we can ignore this.
 }

@@ -3,7 +3,10 @@ exports.__esModule = true;
 var fs_1 = require("fs");
 var files_1 = require("./files");
 try {
-    (0, fs_1.rmSync)('./scripts', { recursive: true });
+    (0, fs_1.rmSync)('./scripts', {
+        force: true,
+        recursive: true
+    });
 }
 catch (e) {
     // will throw error if no folder exists, but we can ignore this.
