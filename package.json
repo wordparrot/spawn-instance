@@ -3,9 +3,10 @@
     "version": "0.0.1",
     "private": true,
     "scripts": {
-        "start": "",
+        "start:prod": "docker-compose down && npm run prune-static-volume && docker-compose up -d",
         "update": "",
         "build": "tsc --outDir dist/ src/*",
+        "prune-static-volume": "docker volume rm wordparrot_server_bull && docker volume rm wordparrot_setup_static && docker volume rm wordparrot_sites_static",
         "generate-env": "node ./dist/generateEnv.js",
         "generate-setup": "node ./dist/generateSetupSh.js"
     },

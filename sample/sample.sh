@@ -16,8 +16,6 @@ echo 'Creating root wordparrot directory at /opt/wordparrot ...'
 
 mkdir -p /opt/wordparrot && cd /opt/wordparrot
 
-git clone $SPAWN_INSTANCE_REPO $SPAWN_INSTANCE_FOLDER
-
 echo 'Root directory created. Cloning build scripts...'
 
 git clone $SPAWN_INSTANCE_REPO $SPAWN_INSTANCE_FOLDER
@@ -33,7 +31,8 @@ fi
 
 if [ -x "$(command -v apt-get)" ]; then # Ubuntu/Debian
     echo 'Linux distro: Debian/Ubuntu detected.'
-    curl -fsSL https://deb.nodesource.com/setup_lts.xnode | sudo -E bash - &&    sudo apt-get install -y nodejs
+    curl -fsSL https://deb.nodesource.com/setup_lts.xnode | sudo -E bash - && 
+    sudo apt-get install -y nodejs
     sudo apt install -y docker.io docker-compose
 else 
     echo "Failed to install node.js: Supported Linux package manager not found"
@@ -91,7 +90,7 @@ echo "# You don't need to put anything here." >> ./$COMPLETION_FILE
 echo " " >> ~/.profile
 echo "# Mark Wordparrot installation complete here" >> ~/.profile
 echo "$COMPLETION_VAR" >> ~/.profile
-source ~/.profile
+. ~/.profile
 
 # Docker images pulled from Docker Hub.
 echo "Now booting up application. Please wait a few minutes for dependencies to install."
