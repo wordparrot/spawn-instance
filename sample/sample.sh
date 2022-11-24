@@ -11,13 +11,10 @@ COMPLETION_VAR="export WORDPARROT_COMPLETED_SETUP=true"
 SPAWN_INSTANCE_FOLDER="spawn-instance"
 ENV_FILE=".env"
 SPAWN_INSTANCE_REPO="https://DowJones753@bitbucket.org/DowJones753/wordparrot-spawn-instance.git"
-WORDPARROT_ROOT = "/opt/wordparrot"
 
 echo 'Creating root wordparrot directory at /opt/wordparrot ...'
 
-mkdir $WORDPARROT_ROOT
-
-cd $WORDPARROT_ROOT
+mkdir -p /opt/wordparrot && cd /opt/wordparrot
 
 git clone $SPAWN_INSTANCE_REPO $SPAWN_INSTANCE_FOLDER
 
@@ -26,7 +23,7 @@ echo 'Root directory created. Cloning build scripts...'
 git clone $SPAWN_INSTANCE_REPO $SPAWN_INSTANCE_FOLDER
 
 if [ -e "$COMPLETION_FILE" ]; then
-    if [[ "$FORCE" == "--force" ]]; then
+    if [ "$FORCE" == "--force" ]; then
         echo 'You have selected to force installation.'
     else
         echo 'Completion file detected. You must add the --force parameter in order to proceed. Exiting.'
