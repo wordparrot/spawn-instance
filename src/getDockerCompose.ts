@@ -110,7 +110,7 @@ services:
             - internal-network
 
     sites_server:
-        image: alecejones/wordparrot
+        image: alecejones/wordparrot:vultr
         restart: always
         env_file: 
             - .env
