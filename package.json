@@ -8,7 +8,8 @@
         "build": "tsc --outDir dist/ src/*",
         "prune-static-volume": "docker volume rm -f wordparrot_server_bull && docker volume rm -f wordparrot_setup_static && docker volume rm -f wordparrot_sites_static",
         "generate-env": "node ./dist/generateEnv.js",
-        "generate-setup": "node ./dist/generateSetupSh.js"
+        "generate-setup": "node ./dist/generateSetupSh.js",
+        "redis-stop": "/etc/init.d/redis-server stop"
     },
     "devDependencies": {
         "@types/node": "^18.11.9",

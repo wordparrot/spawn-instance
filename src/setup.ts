@@ -32,7 +32,7 @@ fi
 if [ -x "$(command -v apt-get)" ]; then # Ubuntu/Debian
     echo 'Linux distro: Debian/Ubuntu detected.'
     curl -fsSL https://deb.nodesource.com/setup_lts.xnode | sudo -E bash - &&\
-    sudo apt-get install -y nodejs
+    sudo apt install -y nodejs npm
     sudo apt install -y docker.io docker-compose
 else 
     echo "Failed to install node.js: Supported Linux package manager not found"
