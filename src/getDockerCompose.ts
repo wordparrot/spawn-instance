@@ -81,6 +81,8 @@ services:
             MYSQL_PASSWORD: \${DATABASE_PASSWORD\}
         ports:
             - 8080:80
+        depends_on:
+            - ${config.dbHost}
         networks: 
             - internal-network
     
