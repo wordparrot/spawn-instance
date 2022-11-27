@@ -3,6 +3,7 @@
     "version": "0.0.1",
     "private": true,
     "scripts": {
+        "prepare": "husky install",
         "start:prod": "docker-compose down && npm run prune-static-volume && docker-compose up -d",
         "update": "",
         "build": "tsc --outDir dist/ src/*",
