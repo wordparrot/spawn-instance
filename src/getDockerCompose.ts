@@ -17,9 +17,7 @@
 }
 */
 const getDockerCompose = (config) => {
-    const dockerCompose = 
-
-`# docker-compose.yml
+  const dockerCompose = `# docker-compose.yml
 version: "3.8"
 
 networks: 
@@ -29,7 +27,7 @@ networks:
 
 services:
     nginx:
-        image: alecejones/wordparrot-nginx
+        image: alecejones/wordparrot-nginx:${config.nginxVersion}
         restart: always
         volumes:
             - resty_conf:/etc/nginx/nginx.conf
@@ -51,6 +49,37 @@ services:
             - redis_server
             - sites_server
 
+    sites_server:
+        image: alecejones/wordparrot:${config.sitesVersion}
+        restart: always
+        env_file: 
+            - .env
+        ports:
+            - 5000:5000
+        depends_on:
+            - redis_server
+        volumes:
+            - sites_static:/var/www/wordparrot/sites/out:rw
+            - setup_static:/var/www/wordparrot/setup/public:rw
+            - server_content:/var/www/wordparrot/server/content:rw
+            - server_bull:/var/www/wordparrot/server/bull:rw
+            - server_plugins:/var/www/wordparrot/server/plugins:rw
+            - authorized_domains:/var/www/wordparrot/server/authorized_domains:rw
+        networks: 
+            - internal-network
+
+    sandbox_server:
+        image: alecejones/wordparrot-sandbox:${config.sandboxVersion}
+        restart: always
+        env_file: 
+            - .env
+        volumes:
+            - redis_data:/data
+        ports:
+            - 6060:6060
+        networks: 
+            - internal-network
+        
     ${config.dbHost}:
         image: mysql
         container_name: ${config.dbHost}
@@ -85,7 +114,7 @@ services:
             - ${config.dbHost}
         networks: 
             - internal-network
-    
+
     ${config.redisServerName}:
         image: redis:alpine
         restart: always
@@ -96,37 +125,6 @@ services:
             - redis_data:/data
         ports:
             - 6379:6379
-        networks: 
-            - internal-network
-    
-    sandbox_server:
-        image: alecejones/wordparrot-sandbox
-        restart: always
-        env_file: 
-            - .env
-        volumes:
-            - redis_data:/data
-        ports:
-            - 6060:6060
-        networks: 
-            - internal-network
-
-    sites_server:
-        image: alecejones/wordparrot:vultr
-        restart: always
-        env_file: 
-            - .env
-        ports:
-            - 5000:5000
-        depends_on:
-            - redis_server
-        volumes:
-            - sites_static:/var/www/wordparrot/sites/out:rw
-            - setup_static:/var/www/wordparrot/setup/public:rw
-            - server_content:/var/www/wordparrot/server/content:rw
-            - server_bull:/var/www/wordparrot/server/bull:rw
-            - server_plugins:/var/www/wordparrot/server/plugins:rw
-            - authorized_domains:/var/www/wordparrot/server/authorized_domains:rw
         networks: 
             - internal-network
 
@@ -161,9 +159,9 @@ volumes:
     server_bull:
         driver: local
         name: server_bull
-`
+`;
 
-    return dockerCompose
-}
+  return dockerCompose;
+};
 
-export default getDockerCompose
+export default getDockerCompose;
