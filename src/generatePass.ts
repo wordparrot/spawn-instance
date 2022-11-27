@@ -1,23 +1,28 @@
-const generatePass = (pLength) => {
-    let keyListAlpha="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ",
-        keyListInt="1234567890",
-        keyListSpec="_-",
-        password='';
-    let len = Math.ceil(pLength/2);
-    len = len - 1;
-    let lenSpec = pLength-2*len;
+const alpha = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+const integers = "0123456789";
+const exCharacters = "!@#$%^&*_-=+";
 
-    for (let i=0;i<len;i++) {
-        password+=keyListAlpha.charAt(Math.floor(Math.random()*keyListAlpha.length));
-        password+=keyListInt.charAt(Math.floor(Math.random()*keyListInt.length));
-    }
+const generatePassword = (length: number, chars: string) => {
+  let password = "";
+  for (let i = 0; i < length; i++) {
+    password += chars.charAt(Math.floor(Math.random() * chars.length));
+  }
+  return password;
+};
 
-    for (let i=0;i<lenSpec;i++)
-        password+=keyListSpec.charAt(Math.floor(Math.random()*keyListSpec.length));
+const generatePass = (
+  length: number,
+  hasNumbers: boolean,
+  hasSymbols: boolean
+) => {
+  let chars = alpha;
+  if (hasNumbers) {
+    chars += integers;
+  }
+  if (hasSymbols) {
+    chars += exCharacters;
+  }
+  return generatePassword(length, chars);
+};
 
-    password=password.split('').sort(function(){return 0.5-Math.random()}).join('');
-
-    return password;
-}
-
-export default generatePass
+export default generatePass;
