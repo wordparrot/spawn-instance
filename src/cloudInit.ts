@@ -1,10 +1,9 @@
 const cloudInit = (base64Str) => {
-    const cloudInitStr = `
+  const cloudInitStr = `
 #cloud-config
+`;
 
-`
+  return cloudInitStr;
+};
 
-    return cloudInitStr
-}
-
-export default cloudInit
+export default cloudInit;
