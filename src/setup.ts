@@ -44,7 +44,7 @@ echo 'Node 18 installation complete.'
 
 echo 'Generating and moving env files...'
 
-cd ./$SPAWN_INSTANCE_FOLDER && npm run generate-env && cd ..
+cd ./$SPAWN_INSTANCE_FOLDER && npm install && npm run generate-env && cd ..
 mv ./$SPAWN_INSTANCE_FOLDER/scripts/.env ./
 mv ./$SPAWN_INSTANCE_FOLDER/scripts/.env.sandbox ./
 mv ./$SPAWN_INSTANCE_FOLDER/scripts/docker-compose.yml ./
@@ -97,6 +97,6 @@ echo "Now booting up application. Please wait a few minutes for dependencies to 
 
 # Run start script from package.json
 ./start.sh
-`
+`;
 
-export default setup
+export default setup;

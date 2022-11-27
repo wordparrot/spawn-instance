@@ -1,3 +1,5 @@
+/dist
+
 /scripts/.env
 /scripts/.env.sandbox
 /scripts/docker-compose.yml
