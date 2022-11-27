@@ -11,8 +11,30 @@
         "generate-setup": "node ./dist/generateSetupSh.js",
         "redis-stop": "/etc/init.d/redis-server stop"
     },
+    "husky": {
+        "hooks": {
+          "pre-commit": "npm run build && git add . && lint-staged"
+        }
+      },
+      "lint-staged": {
+        "*.{js,jsx,ts,tsx}": [
+          "prettier --write"
+        ],
+        "*.{json,xml,html}": [
+          "prettier --write"
+        ]
+      },
+      "commitlint": {
+        "extends": [
+          "@commitlint/config-conventional"
+        ]
+    },
     "devDependencies": {
         "@types/node": "^18.11.9",
-        "typescript": "^4.2.0"
+        "husky": "^8.0.1",
+        "@commitlint/cli": "^16.2.3",
+        "@commitlint/config-conventional": "^16.2.1",
+        "prettier": "^2.5.0",
+        "typescript": "^4.5.2"
     }
 }
