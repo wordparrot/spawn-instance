@@ -1,41 +1,42 @@
 {
-    "name": "wordparrot-spawn-instance",
-    "version": "0.0.1",
-    "private": true,
-    "scripts": {
-        "prepare": "husky install",
-        "start:prod": "docker-compose down && npm run prune-static-volume && docker-compose up -d",
-        "update": "",
-        "build": "tsc --outDir dist/ src/*",
-        "prune-static-volume": "docker volume rm -f wordparrot_server_bull && docker volume rm -f wordparrot_setup_static && docker volume rm -f wordparrot_sites_static",
-        "generate-env": "node ./dist/generateEnv.js",
-        "generate-setup": "node ./dist/generateSetupSh.js",
-        "redis-stop": "/etc/init.d/redis-server stop"
-    },
-    "husky": {
-        "hooks": {
-          "pre-commit": "npm run build && git add . && lint-staged"
-        }
-      },
-      "lint-staged": {
-        "*.{js,jsx,ts,tsx}": [
-          "prettier --write"
-        ],
-        "*.{json,xml,html}": [
-          "prettier --write"
-        ]
-      },
-      "commitlint": {
-        "extends": [
-          "@commitlint/config-conventional"
-        ]
-    },
-    "devDependencies": {
-        "@types/node": "^18.11.9",
-        "husky": "^8.0.1",
-        "@commitlint/cli": "^16.2.3",
-        "@commitlint/config-conventional": "^16.2.1",
-        "prettier": "^2.5.0",
-        "typescript": "^4.5.2"
+  "name": "wordparrot-spawn-instance",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "prepare": "husky install",
+    "start:prod": "docker-compose down && npm run prune-static-volume && docker-compose up -d",
+    "update": "",
+    "build": "tsc --outDir dist/ src/*",
+    "prune-static-volume": "docker volume rm -f wordparrot_server_bull && docker volume rm -f wordparrot_setup_static && docker volume rm -f wordparrot_sites_static",
+    "generate-env": "node ./dist/generateEnv.js",
+    "generate-setup": "node ./dist/generateSetupSh.js",
+    "redis-stop": "/etc/init.d/redis-server stop"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run build && git add . && lint-staged"
     }
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "prettier --write"
+    ],
+    "*.{json,xml,html}": [
+      "prettier --write"
+    ]
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^16.2.3",
+    "@commitlint/config-conventional": "^16.2.1",
+    "@types/node": "^18.11.9",
+    "husky": "^8.0.1",
+    "lint-staged": "^13.0.4",
+    "prettier": "^2.5.0",
+    "typescript": "^4.5.2"
+  }
 }
