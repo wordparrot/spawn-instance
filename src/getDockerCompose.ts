@@ -33,7 +33,6 @@ services:
             - resty_conf:/etc/nginx/nginx.conf
             - resty_certificates:/etc/resty-auto-ssl:rw
             - sites_static:/var/www/wordparrot/sites/out:ro
-            - setup_static:/var/www/wordparrot/sites/setup:ro
             - server_bull:/var/www/wordparrot/server/bull:ro
             - server_content:/var/www/wordparrot/server/content:ro
             - server_plugins:/var/www/wordparrot/server/plugins:ro
@@ -60,7 +59,6 @@ services:
             - redis_server
         volumes:
             - sites_static:/var/www/wordparrot/sites/out:rw
-            - setup_static:/var/www/wordparrot/setup/public:rw
             - server_content:/var/www/wordparrot/server/content:rw
             - server_bull:/var/www/wordparrot/server/bull:rw
             - server_plugins:/var/www/wordparrot/server/plugins:rw
@@ -147,9 +145,6 @@ volumes:
     sites_static:
         driver: local
         name: sites_static
-    setup_static:
-        driver: local
-        name: setup_static
     server_content:
         driver: local
         name: server_content
