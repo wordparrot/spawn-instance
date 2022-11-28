@@ -7,7 +7,7 @@ const defineEnvVariables = () => {
     // Versions
     sitesVersion: "vultr",
     sandboxVersion: "latest",
-    nginxVersion: "latest",
+    nginxVersion: "vultr",
 
     cookieSecret: generatePass(64, true, true),
     jwtSecret: generatePass(64, true, true),
