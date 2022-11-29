@@ -1,7 +1,5 @@
 const getEnv = (config) => {
-    const env = 
-
-`# Sites server
+  const env = `# Sites server
 
 # Node environment
 NODE_ENV=${config.nodeEnv}
@@ -28,7 +26,7 @@ REDIS_CACHE_DB=${config.redisCacheDb}
 REDIS_AUTHORIZED_DOMAINS=${config.redisAuthorizedDomains}
 
 # Sandbox server
-SANDBOX_SERVER=http://${config.sandboxServerName}:${config.sandboxPort}
+SANDBOX_SERVER=http://${config.sandboxServerName}
 SANDBOX_PORT=${config.sandboxPort}
 
 # Server main port
@@ -36,9 +34,9 @@ SERVER_PORT=${config.serverPort}
 
 # Add injected entries below
 
-`
+`;
 
-    return env
-}
+  return env;
+};
 
-export default getEnv
+export default getEnv;
