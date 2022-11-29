@@ -16,8 +16,8 @@ const defineEnvVariables = () => {
 
     dbHost: "db_server",
     dbPort: 3306,
-    dbName: `wpdb_${generatePass(10, true, true)}`,
-    dbUser: `wpuser_${generatePass(10, true, true)}`,
+    dbName: `wpdb_${generatePass(10, true, false)}`,
+    dbUser: `wpuser_${generatePass(10, true, false)}`,
     mysqlRootPassword: generatePass(64, true, true),
     dbUserPassword: generatePass(64, true, true),
 
