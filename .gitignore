@@ -1,4 +1,6 @@
 /dist
+/build
+/environment
 
 /scripts/.env
 /scripts/.env.sandbox

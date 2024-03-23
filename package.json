@@ -1,16 +1,12 @@
 {
   "name": "wordparrot-spawn-instance",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "prepare": "husky install",
-    "start:prod": "docker-compose down && npm run prune-static-volume && docker-compose up -d",
-    "update": "",
-    "build": "tsc --outDir dist/ src/*",
-    "prune-static-volume": "docker volume rm -f wordparrot_server_bull && docker volume rm -f wordparrot_sites_static",
-    "generate-env": "npm run build && node ./dist/generateEnv.js",
-    "generate-setup": "node ./dist/generateSetupSh.js",
-    "redis-stop": "/etc/init.d/redis-server stop"
+    "build.src": "tsc src/index.ts --outDir ./dist",
+    "build.files": "node dist/index.js",
+    "build.files:override": "node dist/index.js --override"
   },
   "husky": {
     "hooks": {
@@ -38,5 +34,8 @@
     "lint-staged": "^13.0.4",
     "prettier": "^2.5.0",
     "typescript": "^4.5.2"
+  },
+  "dependencies": {
+    "commander": "^12.0.0"
   }
 }

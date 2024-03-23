@@ -45,10 +45,10 @@ echo 'Node 18 installation complete.'
 echo 'Generating and moving env files...'
 
 cd ./$SPAWN_INSTANCE_FOLDER && npm install && npm run generate-env && cd ..
-mv ./$SPAWN_INSTANCE_FOLDER/build/.env ./
-mv ./$SPAWN_INSTANCE_FOLDER/build/.env.sandbox ./
-mv ./$SPAWN_INSTANCE_FOLDER/build/docker-compose.yml ./
-mv ./$SPAWN_INSTANCE_FOLDER/build/start.sh ./
+mv ./$SPAWN_INSTANCE_FOLDER/environment/.env ./
+mv ./$SPAWN_INSTANCE_FOLDER/environment/.env.sandbox ./
+mv ./$SPAWN_INSTANCE_FOLDER/environment/docker-compose.yml ./
+mv ./$SPAWN_INSTANCE_FOLDER/environment/start.sh ./
 mv ./$SPAWN_INSTANCE_FOLDER/package.json ./
 
 # Set start script permissions
