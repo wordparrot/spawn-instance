@@ -1,6 +1,5 @@
 const getSandboxEnv = (config) => {
     const envSandbox =
-
 `# Sandbox server
 
 # Node environment

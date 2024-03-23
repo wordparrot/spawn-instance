@@ -1,6 +1,11 @@
-import setupSh from './setup'
+import setupSh from '../templates/setup.sh'
 
-export const setupScriptInUtf8 = (config) => {
+export const getSetupScriptWithInjectedVars = (config: {
+    domainName: string
+    mysqlRootPassword: string
+    databaseUser: string
+    databasePassword: string
+}) => {
     const {
         domainName,
         mysqlRootPassword,
@@ -46,10 +51,10 @@ export const setupScriptInUtf8 = (config) => {
     return modifiedSetupScript
 }
 
-const setupScriptInBase64 = async (config) => {
-    const setupScript = await setupScriptInUtf8(config)
+const getBase64SetupScript = async (config) => {
+    const setupScript = getSetupScriptWithInjectedVars(config);
     const buf = Buffer.from(setupScript, 'utf-8')
     return buf.toString('base64')
 }
  
-export default setupScriptInBase64
+export default getBase64SetupScript

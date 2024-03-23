@@ -1,11 +1,10 @@
-# Wordparrot Spawn Instance
-> Short blurb about what your product does.
+# Spawn Instance
 
 [![NPM Version][npm-image]][npm-url]
 [![Build Status][travis-image]][travis-url]
 [![Downloads Stats][npm-downloads]][npm-url]
 
-Contains assets to instantiate a Wordparrot automation server.
+Unpacks required files necessary for local wordparrot installation, including environment files, docker-compose.yml, and start.sh.
 
 ![](header.png)
 

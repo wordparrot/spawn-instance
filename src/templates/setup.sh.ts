@@ -1,4 +1,4 @@
-#!/bin/bash
+const setup = `#!/bin/bash
 
 # Node.js Version: 18.x
 # Script version: 0.0.1
@@ -21,7 +21,7 @@ echo 'Root directory created. Cloning build scripts...'
 git clone $SPAWN_INSTANCE_REPO $SPAWN_INSTANCE_FOLDER
 
 if [ -e "$COMPLETION_FILE" ]; then
-    if [ "$FORCE" == "--force" ]; then
+    if [[ "$FORCE" == "--force" ]]; then
         echo 'You have selected to force installation.'
     else
         echo 'Completion file detected. You must add the --force parameter in order to proceed. Exiting.'
@@ -31,8 +31,8 @@ fi
 
 if [ -x "$(command -v apt-get)" ]; then # Ubuntu/Debian
     echo 'Linux distro: Debian/Ubuntu detected.'
-    curl -fsSL https://deb.nodesource.com/setup_lts.xnode | sudo -E bash - && 
-    sudo apt-get install -y nodejs npm
+    curl -fsSL https://deb.nodesource.com/setup_lts.xnode | sudo -E bash - &&\
+    sudo apt install -y nodejs npm
     sudo apt install -y docker.io docker-compose
 else 
     echo "Failed to install node.js: Supported Linux package manager not found"
@@ -44,11 +44,11 @@ echo 'Node 18 installation complete.'
 
 echo 'Generating and moving env files...'
 
-cd ./$SPAWN_INSTANCE_FOLDER && npm run generate-env && cd ..
-mv ./$SPAWN_INSTANCE_FOLDER/scripts/.env ./
-mv ./$SPAWN_INSTANCE_FOLDER/scripts/.env.sandbox ./
-mv ./$SPAWN_INSTANCE_FOLDER/scripts/docker-compose.yml ./
-mv ./$SPAWN_INSTANCE_FOLDER/scripts/start.sh ./
+cd ./$SPAWN_INSTANCE_FOLDER && npm install && npm run generate-env && cd ..
+mv ./$SPAWN_INSTANCE_FOLDER/environment/.env ./
+mv ./$SPAWN_INSTANCE_FOLDER/environment/.env.sandbox ./
+mv ./$SPAWN_INSTANCE_FOLDER/environment/docker-compose.yml ./
+mv ./$SPAWN_INSTANCE_FOLDER/environment/start.sh ./
 mv ./$SPAWN_INSTANCE_FOLDER/package.json ./
 
 # Set start script permissions
@@ -62,16 +62,16 @@ echo 'Env files generated. Deleting spawn instance repo.'
 # The specific domain will be injected at runtime because each domain is user-specific.
 echo "# Authorized Domain" >> ./.env
 
-echo "AUTHORIZED_DOMAIN=testinstance.wordparrot.com" >> .env
+###INJECT_AUTHORIZED_DOMAIN###
 
 # Inject credentials for database
 echo "# Database Credentials" >> ./.env
 
-echo "MYSQL_ROOT_PASSWORD=9j13UMe0i_96N4t7-C12cz32uV9Hl91o447ujW20sB8OAof4G5p9773HH95hQg35" >> .env
+###INJECT_MYSQL_ROOT_PASSWORD###
 
-echo "DATABASE_USER=wparrotuser_-3Y42h7l9_t2Nk4I" >> .env
+###INJECT_DATABASE_USER###
 
-echo "DATABASE_PASSWORD=--9b425wBc9GrF555l7607CS57Es8934XE61l59tf5CCO3mN3W9w4Cp562ZtD4Mc" >> .env
+###INJECT_DATABASE_PASSWORD###
 
 rm -rf ./$SPAWN_INSTANCE_FOLDER
 
@@ -97,3 +97,6 @@ echo "Now booting up application. Please wait a few minutes for dependencies to 
 
 # Run start script from package.json
 ./start.sh
+`;
+
+export default setup;
