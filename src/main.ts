@@ -1,11 +1,13 @@
 import { mkdir, writeFile, rm, stat } from "fs/promises";
 import { Command } from "commander";
 
+import getBase64SetupScript from "./createBase64";
 import fileList from "./templates/fileList";
 
 const program = new Command();
 
 const buildDir = "./environment";
+const base64SetupScript = getBase64SetupScript;
 
 /*
 Generate a list of files for wordparrot use. Includes:
@@ -31,6 +33,18 @@ const main = () => {
       .usage("[OPTIONS]...")
       .option("-o, --override", "Delete build folder if present.")
       .parse(process.argv);
+
+    if (!process.env.WORDPARROT_AUTHORIZED_DOMAIN) {
+      console.log("");
+      console.log("");
+      console.log(
+        'Error: WORDPARROT_AUTHORIZED_DOMAIN environment variable must be set to a valid Internet domain name (e.g. "app.wordparrot.com").'
+      );
+      console.log("");
+      console.log("Exiting.");
+      console.log("");
+      process.exit(1);
+    }
 
     try {
       // Checks to see if build folder is already there.
