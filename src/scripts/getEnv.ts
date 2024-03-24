@@ -19,6 +19,7 @@ MYSQL_ROOT_PASSWORD=${config.dbRootPassword}
 DATABASE_NAME=${config.dbName}
 DATABASE_USER=${config.dbUser}
 DATABASE_PASSWORD=${config.dbUserPassword}
+DATABASE_VERSION=${config.dbVersion}
 # Uncomment and fill in to override with external MySQL database or MariaDB database
 # DATABASE_FULL_STRING=mysql://user:password@localhost/wordparrot_db
 

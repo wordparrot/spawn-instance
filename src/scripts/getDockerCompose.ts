@@ -27,7 +27,7 @@ networks:
 
 services:
     ${config.nginxService}:
-        image: alecejones/wordparrot-nginx:${config.nginxVersion}
+        image: ${config.imageRepositoryAccount}/${config.nginxImage}:${config.nginxVersion}
         restart: always
         volumes:
             - resty_conf:/etc/nginx/nginx.conf
@@ -49,7 +49,7 @@ services:
             - sites_server
 
     ${config.apiService}:
-        image: alecejones/wordparrot-api:${config.sitesVersion}
+        image: ${config.imageRepositoryAccount}/${config.apiImage}:${config.apiVersion}
         restart: always
         env_file:
             - .env
@@ -68,7 +68,7 @@ services:
             - internal-network
 
     ${config.webService}:
-        image: alecejones/wordparrot-web:${config.sitesVersion}
+        image: ${config.imageRepositoryAccount}/${config.webImage}:${config.webVersion}
         restart: always
         env_file:
             - .env
@@ -87,7 +87,7 @@ services:
             - internal-network
 
     ${config.sandboxService}:
-        image: alecejones/wordparrot-sandbox:${config.sandboxVersion}
+        image: ${config.imageRepositoryAccount}/${config.sandboxImage}:${config.sandboxVersion}
         restart: always
         env_file:
             - .env
@@ -99,7 +99,7 @@ services:
             - internal-network
         
     ${config.dbHost}:
-        image: mariadb
+        image: ${config.dbImage}:${config.dbVersion}
         container_name: ${config.dbHost}
         restart: always
         volumes:

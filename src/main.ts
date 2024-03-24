@@ -20,6 +20,8 @@ Generate a list of files for wordparrot use. Includes:
 Important variables will also be injected into the files.
 */
 const main = () => {
+  console.log("");
+  console.log("");
   console.log(
     " \\\\                        =o) \r\n (o>                       /\\\\ \r\n_(()_Welcome to Wordparrot_\\_V_\r\n //                         \\\\ \r\n                             \\\\"
   );
@@ -45,7 +47,7 @@ const main = () => {
       console.log("");
       process.exit(1);
     }
-    
+
     try {
       // Checks to see if build folder is already there.
       await stat(buildDir);

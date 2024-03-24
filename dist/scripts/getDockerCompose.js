@@ -21,36 +21,37 @@ exports.__esModule = true;
 var getDockerCompose = function (config) {
   var dockerCompose =
     '# docker-compose.yml\nversion: "3.8"\n\nnetworks:\n    internal-network:\n        driver: bridge\n        name: wprt_public\n\nservices:\n    '
-      .concat(
-        config.nginxService,
-        ":\n        image: alecejones/wordparrot-nginx:"
-      )
+      .concat(config.nginxService, ":\n        image: ")
+      .concat(config.imageRepositoryAccount, "/")
+      .concat(config.nginxImage, ":")
       .concat(
         config.nginxVersion,
         "\n        restart: always\n        volumes:\n            - resty_conf:/etc/nginx/nginx.conf\n            - resty_certificates:/etc/resty-auto-ssl:rw\n            - sites_static:/var/www/wordparrot/sites/out:ro\n            - server_bull:/var/www/wordparrot/server/bull:ro\n            - server_content:/var/www/wordparrot/server/content:ro\n            - server_plugins:/var/www/wordparrot/server/plugins:ro\n            - authorized_domains:/var/www/wordparrot/authorized_domains:ro\n        networks:\n            - internal-network\n        env_file:\n            - .env\n        ports:\n            - 80:80\n            - 443:443\n        depends_on:\n            - redis_server\n            - sites_server\n\n    "
       )
-      .concat(config.apiService, ":\n        image: alecejones/wordparrot-api:")
+      .concat(config.apiService, ":\n        image: ")
+      .concat(config.imageRepositoryAccount, "/")
+      .concat(config.apiImage, ":")
       .concat(
-        config.sitesVersion,
+        config.apiVersion,
         "\n        restart: always\n        env_file:\n            - .env\n        ports:\n            - 5000:5000\n        depends_on:\n            - redis_server\n        volumes:\n            - sites_static:/var/www/wordparrot/sites/out:rw\n            - server_content:/var/www/wordparrot/server/content:rw\n            - server_bull:/var/www/wordparrot/server/bull:rw\n            - server_plugins:/var/www/wordparrot/server/plugins:rw\n            - server_blueprints:/var/www/wordparrot/server/blueprints:rw\n            - authorized_domains:/var/www/wordparrot/server/authorized_domains:rw\n        networks:\n            - internal-network\n\n    "
       )
-      .concat(config.webService, ":\n        image: alecejones/wordparrot-web:")
+      .concat(config.webService, ":\n        image: ")
+      .concat(config.imageRepositoryAccount, "/")
+      .concat(config.webImage, ":")
       .concat(
-        config.sitesVersion,
+        config.webVersion,
         "\n        restart: always\n        env_file:\n            - .env\n        ports:\n            - 5000:5000\n        depends_on:\n            - redis_server\n        volumes:\n            - sites_static:/var/www/wordparrot/sites/out:rw\n            - server_content:/var/www/wordparrot/server/content:rw\n            - server_bull:/var/www/wordparrot/server/bull:rw\n            - server_plugins:/var/www/wordparrot/server/plugins:rw\n            - server_blueprints:/var/www/wordparrot/server/blueprints:rw\n            - authorized_domains:/var/www/wordparrot/server/authorized_domains:rw\n        networks:\n            - internal-network\n\n    "
       )
-      .concat(
-        config.sandboxService,
-        ":\n        image: alecejones/wordparrot-sandbox:"
-      )
+      .concat(config.sandboxService, ":\n        image: ")
+      .concat(config.imageRepositoryAccount, "/")
+      .concat(config.sandboxImage, ":")
       .concat(
         config.sandboxVersion,
         "\n        restart: always\n        env_file:\n            - .env\n        volumes:\n            - redis_data:/data\n        ports:\n            - 6060:6060\n        networks:\n            - internal-network\n        \n    "
       )
-      .concat(
-        config.dbHost,
-        ":\n        image: mariadb\n        container_name: "
-      )
+      .concat(config.dbHost, ":\n        image: ")
+      .concat(config.dbImage, ":")
+      .concat(config.dbVersion, "\n        container_name: ")
       .concat(
         config.dbHost,
         "\n        restart: always\n        volumes:\n            - db_data:/var/lib/mysql\n        environment:\n            MARIADB_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}\n            MARIADB_DATABASE: ${DATABASE_NAME}\n            MARIADB_USER: ${DATABASE_USER}\n            MARIADB_PASSWORD: ${DATABASE_PASSWORD}\n        env_file:\n            - .env\n        ports:\n            - 3306:3306\n        networks:\n            - internal-network\n\n    "
