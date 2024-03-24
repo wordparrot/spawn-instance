@@ -1,5 +1,4 @@
 # Spawn Instance
-> Short blurb about what your product does.
 
 [![NPM Version][npm-image]][npm-url]
 [![Build Status][travis-image]][travis-url]
@@ -26,7 +25,6 @@ edit autoexec.bat
 ## Usage example
 
 Scaffolding a Wordparrot environment is a 3-stage process.
-
 
 ## Development setup
 

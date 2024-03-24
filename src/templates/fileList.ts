@@ -3,6 +3,7 @@ import getEnv from "../scripts/getEnv";
 import getSandboxEnv from "../scripts/getSandboxEnv";
 import start from "./start.sh";
 import getDotEnvFile from "../scripts/getDotEnvFile";
+
 import setup from "../templates/setup.sh";
 
 const envVariables = getDotEnvFile();

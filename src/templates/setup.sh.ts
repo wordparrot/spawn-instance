@@ -79,7 +79,7 @@ const setup = `#!/bin/bash
     echo "Now booting up application. Please wait a few minutes for dependencies to install."
     
     # Run start script from package.json
-    ./start.sh
+    bash ./start.sh
 `;
 
 export default setup;

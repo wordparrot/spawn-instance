@@ -45,7 +45,7 @@ const main = () => {
       console.log("");
       process.exit(1);
     }
-
+    
     try {
       // Checks to see if build folder is already there.
       await stat(buildDir);

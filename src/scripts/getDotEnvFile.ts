@@ -68,7 +68,7 @@ const getDotEnvVars = () => {
     redisQueueDb: "1",
     redisCacheDb: "2",
     redisAuthorizedDomains: "authorized_domains",
-
+    
     // Sandbox variables
     sandboxServerName: "sandbox_server",
     sandboxPort: 6060,

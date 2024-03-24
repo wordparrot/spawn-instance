@@ -1,6 +1,6 @@
 const getEnv = (config) => {
   const env = `# App-Web: Environment Configuration File
-
+  
 # Node environment
 NODE_ENV=${config.nodeEnv}
     
