@@ -2,7 +2,7 @@
 exports.__esModule = true;
 var getEnv = function (config) {
   var env =
-    "# App-Web: Environment Configuration File\n\n# Node environment\nNODE_ENV="
+    "# App-Web: Environment Configuration File\n  \n# Node environment\nNODE_ENV="
       .concat(config.nodeEnv, "\n    \n# Cryptography\nCOOKIE_SECRET=")
       .concat(config.cookieSecret, "\nJWT_SECRET=")
       .concat(config.jwtSecret, "\nADMIN_JWT_SECRET=")
@@ -19,8 +19,9 @@ var getEnv = function (config) {
       .concat(config.dbRootPassword, "\nDATABASE_NAME=")
       .concat(config.dbName, "\nDATABASE_USER=")
       .concat(config.dbUser, "\nDATABASE_PASSWORD=")
+      .concat(config.dbUserPassword, "\nDATABASE_VERSION=")
       .concat(
-        config.dbUserPassword,
+        config.dbVersion,
         "\n# Uncomment and fill in to override with external MySQL database or MariaDB database\n# DATABASE_FULL_STRING=mysql://user:password@localhost/wordparrot_db\n\n# Redis\nREDIS_SERVER_NAME="
       )
       .concat(config.redisServerName, "\nREDIS_PORT=")

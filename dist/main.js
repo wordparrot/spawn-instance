@@ -151,6 +151,8 @@ Generate a list of files for wordparrot use. Includes:
 Important variables will also be injected into the files.
 */
 var main = function () {
+  console.log("");
+  console.log("");
   console.log(
     " \\\\                        =o) \r\n (o>                       /\\\\ \r\n_(()_Welcome to Wordparrot_\\_V_\r\n //                         \\\\ \r\n                             \\\\"
   );

@@ -30,15 +30,25 @@ const getDotEnvVars = () => {
     nodeEnv: "production",
 
     // Versions
-    sitesVersion: "vultr",
-    sandboxVersion: "latest",
-    nginxVersion: "vultr",
+    apiVersion: "1.0.0",
+    webVersion: "1.0.0",
+    sandboxVersion: "1.0.0",
+    nginxVersion: "1.0.0",
+
+    imageRepositoryAccount: "alecejones",
 
     // Names of primary services
     apiService: "app-api",
+    apiImage: "wordparrot-api",
+
     webService: "app-web",
+    webImage: "wordparrot-web",
+
     sandboxService: "app-sandbox",
+    sandboxImage: "wordparrot-sandbox",
+
     nginxService: "app-nginx",
+    nginxImage: "wordparrot-nginx",
 
     // Secret generation
     cookieSecret: generatePass(64, true, true),
@@ -48,6 +58,8 @@ const getDotEnvVars = () => {
 
     // Database variables
     dbHost: "db_server",
+    dbImage: "mariadb",
+    dbVersion: "11.3.2-jammy",
     dbPort: 3306,
     dbName: `wpdb_${generatePass(10, true, false)}`,
     dbUser: `wpuser_${generatePass(10, true, false)}`,
@@ -58,7 +70,7 @@ const getDotEnvVars = () => {
     serverPort: 5000,
 
     // Admin variables
-    adminName: "php_my_admin",
+    adminName: "php_myadmin",
 
     // Redis variables
     redisServerName: "redis_server",
@@ -68,7 +80,7 @@ const getDotEnvVars = () => {
     redisQueueDb: "1",
     redisCacheDb: "2",
     redisAuthorizedDomains: "authorized_domains",
-    
+
     // Sandbox variables
     sandboxServerName: "sandbox_server",
     sandboxPort: 6060,
