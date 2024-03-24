@@ -4,6 +4,8 @@ import getSandboxEnv from "../scripts/getSandboxEnv";
 import start from "./start.sh";
 import getDotEnvFile from "../scripts/getDotEnvFile";
 
+import setup from "../templates/setup.sh";
+
 const envVariables = getDotEnvFile();
 
 const fileList = [
@@ -26,6 +28,11 @@ const fileList = [
     name: "start.sh",
     rawString: start,
     index: 3,
+  },
+  {
+    name: "setup.sh",
+    rawString: setup,
+    index: 4,
   },
 ];
 

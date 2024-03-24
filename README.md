@@ -24,9 +24,7 @@ edit autoexec.bat
 
 ## Usage example
 
-A few motivating and useful examples of how your product can be used. Spice this up with code blocks and potentially more screenshots.
-
-_For more examples and usage, please refer to the [Wiki][wiki]._
+Scaffolding a Wordparrot environment is a 3-stage process.
 
 ## Development setup
 

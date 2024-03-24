@@ -1,6 +1,6 @@
 const getEnv = (config) => {
-  const env = `# Sites server
-
+  const env = `# App-Web: Environment Configuration File
+  
 # Node environment
 NODE_ENV=${config.nodeEnv}
     
@@ -10,10 +10,16 @@ JWT_SECRET=${config.jwtSecret}
 ADMIN_JWT_SECRET=${config.adminJwtSecret}
 STORAGE_ENCRYPTION_KEY=${config.storageEncryptionKey}
 
+# Authorized Domain
+AUTHORIZED_DOMAIN=${process.env.WORDPARROT_AUTHORIZED_DOMAIN}
+
 # Database
-DATABASE_NAME=${config.dbName}
 DATABASE_HOST=${config.dbHost}
-# Uncomment and fill in to override with external MySQL database
+MYSQL_ROOT_PASSWORD=${config.dbRootPassword}
+DATABASE_NAME=${config.dbName}
+DATABASE_USER=${config.dbUser}
+DATABASE_PASSWORD=${config.dbUserPassword}
+# Uncomment and fill in to override with external MySQL database or MariaDB database
 # DATABASE_FULL_STRING=mysql://user:password@localhost/wordparrot_db
 
 # Redis

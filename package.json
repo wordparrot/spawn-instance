@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "prepare": "husky install",
-    "build.src": "tsc src/index.ts --outDir ./dist",
+    "build.src": "tsc src/index.ts --outDir ./dist && node dist/createBase64.js",
     "build.files": "node dist/index.js",
     "build.files:override": "node dist/index.js --override"
   },

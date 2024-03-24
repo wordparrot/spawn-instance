@@ -26,7 +26,7 @@ networks:
         name: wprt_public
 
 services:
-    nginx:
+    ${config.nginxService}:
         image: alecejones/wordparrot-nginx:${config.nginxVersion}
         restart: always
         volumes:
@@ -48,8 +48,8 @@ services:
             - redis_server
             - sites_server
 
-    sites_server:
-        image: alecejones/wordparrot:${config.sitesVersion}
+    ${config.apiService}:
+        image: alecejones/wordparrot-api:${config.sitesVersion}
         restart: always
         env_file:
             - .env
@@ -67,7 +67,26 @@ services:
         networks:
             - internal-network
 
-    sandbox_server:
+    ${config.webService}:
+        image: alecejones/wordparrot-web:${config.sitesVersion}
+        restart: always
+        env_file:
+            - .env
+        ports:
+            - 5000:5000
+        depends_on:
+            - redis_server
+        volumes:
+            - sites_static:/var/www/wordparrot/sites/out:rw
+            - server_content:/var/www/wordparrot/server/content:rw
+            - server_bull:/var/www/wordparrot/server/bull:rw
+            - server_plugins:/var/www/wordparrot/server/plugins:rw
+            - server_blueprints:/var/www/wordparrot/server/blueprints:rw
+            - authorized_domains:/var/www/wordparrot/server/authorized_domains:rw
+        networks:
+            - internal-network
+
+    ${config.sandboxService}:
         image: alecejones/wordparrot-sandbox:${config.sandboxVersion}
         restart: always
         env_file:
@@ -80,16 +99,16 @@ services:
             - internal-network
         
     ${config.dbHost}:
-        image: mysql
+        image: mariadb
         container_name: ${config.dbHost}
         restart: always
         volumes:
             - db_data:/var/lib/mysql
         environment:
-            MYSQL_ROOT_PASSWORD: \${MYSQL_ROOT_PASSWORD\}
-            MYSQL_DATABASE: \${DATABASE_NAME\}
-            MYSQL_USER: \${DATABASE_USER\}
-            MYSQL_PASSWORD: \${DATABASE_PASSWORD\}
+            MARIADB_ROOT_PASSWORD: \${MYSQL_ROOT_PASSWORD\}
+            MARIADB_DATABASE: \${DATABASE_NAME\}
+            MARIADB_USER: \${DATABASE_USER\}
+            MARIADB_PASSWORD: \${DATABASE_PASSWORD\}
         env_file:
             - .env
         ports:
@@ -97,7 +116,7 @@ services:
         networks:
             - internal-network
 
-    phpmyadmin:
+    ${config.adminName}:
         image: phpmyadmin
         restart: always
         env_file:
